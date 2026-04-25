@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="{{ DEFAULT_LANG }}">
+{# Children may set: page_title, page_description, canonical_path. #}
+{% set _title = page_title | default(SITENAME ~ ' — ' ~ SITESUBTITLE) %}
+{% set _desc = page_description | default(SITESUBTITLE ~ '.') %}
+{% set _path = canonical_path | default('/') %}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ _title }}</title>
+  <meta name="description" content="{{ _desc }}">
+  <meta name="author" content="{{ AUTHOR }}">
+  <link rel="canonical" href="{{ SITEURL }}{{ _path }}">
+
+  {# Open Graph #}
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{ SITENAME }}">
+  <meta property="og:title" content="{{ _title }}">
+  <meta property="og:description" content="{{ _desc }}">
+  <meta property="og:url" content="{{ SITEURL }}{{ _path }}">
+  <meta property="og:image" content="{{ SITEURL }}/og.png">
+
+  {# Twitter #}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ _title }}">
+  <meta name="twitter:description" content="{{ _desc }}">
+  <meta name="twitter:image" content="{{ SITEURL }}/og.png">
+
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/style.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "{{ PERSON.name }}",
+    "jobTitle": "{{ PERSON.job_title }}",
+    "email": "mailto:{{ PERSON.email }}",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "{{ PERSON.address_locality }}",
+      "addressCountry": "{{ PERSON.address_country }}"
+    },
+    "url": "{{ SITEURL }}/",
+    "sameAs": {{ PERSON.same_as | tojson }}
+  }
+  </script>
+
+  {% if CF_ANALYTICS_TOKEN %}
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon='{"token": "{{ CF_ANALYTICS_TOKEN }}"}'></script>
+  {% endif %}
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="site-title" href="{{ SITEURL }}/">{{ SITENAME }}</a>
+      <nav class="site-nav" aria-label="Primary">
+        <ul>
+          {% for label, url in MENUITEMS %}
+          <li><a href="{{ SITEURL }}{{ url }}">{{ label }}</a></li>
+          {% endfor %}
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>
+        © {{ AUTHOR }} ·
+        {% for name, url in SOCIAL %}
+          <a href="{{ url }}">{{ name }}</a>{% if not loop.last %} · {% endif %}
+        {% endfor %}
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

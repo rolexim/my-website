@@ -1,0 +1,157 @@
+:root {
+  --bg: #ffffff;
+  --bg-soft: #f7f7f8;
+  --fg: #1a1a1a;
+  --fg-muted: #555;
+  --accent: #1a4fbf;
+  --rule: #e3e3e6;
+  --max-width: 44rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #11131a;
+    --bg-soft: #1a1d27;
+    --fg: #e8eaef;
+    --fg-muted: #a0a4ad;
+    --accent: #7aa7ff;
+    --rule: #2a2e3a;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+               Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--fg);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover, a:focus { text-decoration: underline; }
+
+.skip-link {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px; height: 1px;
+  overflow: hidden;
+}
+.skip-link:focus {
+  position: static;
+  width: auto; height: auto;
+  background: var(--accent);
+  color: #fff;
+  padding: .5rem 1rem;
+}
+
+/* Header */
+.site-header {
+  border-bottom: 1px solid var(--rule);
+  padding: 1.25rem 0;
+  margin-bottom: 2.5rem;
+}
+.site-header .container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.site-title {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--fg);
+}
+.site-nav ul {
+  list-style: none;
+  margin: 0; padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+.site-nav a { color: var(--fg-muted); }
+.site-nav a:hover { color: var(--accent); }
+
+/* Content */
+main.container { padding-bottom: 4rem; }
+
+h1, h2, h3, h4 {
+  line-height: 1.25;
+  color: var(--fg);
+  margin: 2.25rem 0 .75rem;
+}
+h1 { font-size: 2rem; margin-top: .5rem; }
+h2 { font-size: 1.4rem; border-bottom: 1px solid var(--rule); padding-bottom: .25rem; }
+h3 { font-size: 1.1rem; }
+h4 { font-size: 1rem; color: var(--fg-muted); margin-bottom: .25rem; }
+
+p, ul, ol { margin: .75rem 0; }
+li { margin: .25rem 0; }
+
+code, pre {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: .92em;
+}
+code { background: var(--bg-soft); padding: 1px 4px; border-radius: 3px; }
+pre {
+  background: var(--bg-soft);
+  padding: 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+}
+
+hr { border: 0; border-top: 1px solid var(--rule); margin: 2rem 0; }
+
+/* Resume-specific tweaks */
+.resume-meta {
+  color: var(--fg-muted);
+  font-size: .95rem;
+  margin-top: -.25rem;
+  margin-bottom: 1.5rem;
+}
+.pdf-link {
+  display: inline-block;
+  margin-top: .25rem;
+  padding: .15rem .55rem;
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  font-size: .9rem;
+}
+
+/* Footer */
+.site-footer {
+  border-top: 1px solid var(--rule);
+  padding: 1.5rem 0;
+  color: var(--fg-muted);
+  font-size: .9rem;
+}
+
+/* Print */
+@media print {
+  :root {
+    --bg: #fff; --fg: #000; --fg-muted: #333;
+    --accent: #000; --rule: #999;
+  }
+  .site-header, .site-footer, .site-nav, .skip-link, .pdf-link { display: none; }
+  body { font-size: 11pt; }
+  main.container { padding: 0; max-width: none; }
+  h2 { page-break-after: avoid; }
+  h3 { page-break-after: avoid; }
+  li, p { page-break-inside: avoid; }
+  a { color: inherit; text-decoration: none; }
+}

@@ -1,0 +1,11 @@
+{% set page_title = page.title ~ ' — ' ~ SITENAME %}
+{% set page_description = page.summary | striptags | trim | default(SITESUBTITLE ~ '.', true) %}
+{% set canonical_path = '/' if page.url == '' else '/' ~ page.url %}
+{% extends "base.html" %}
+
+{% block content %}
+<article class="page page--{{ page.slug }}">
+  {% if page.slug != 'index' %}<h1>{{ page.title }}</h1>{% endif %}
+  {{ page.content }}
+</article>
+{% endblock %}

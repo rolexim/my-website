@@ -1,0 +1,7 @@
+# Copy to terraform.tfvars and fill in.
+# terraform.tfvars is gitignored.
+
+github_repository = "your-github-username/my-website"
+# github_branch    = "main"     # default
+# aws_region       = "us-east-1" # default
+# domain_name      = "rolando.solstud.io" # default
