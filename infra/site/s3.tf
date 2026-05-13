@@ -1,6 +1,10 @@
 # Private bucket — only CloudFront (via OAC) can read objects.
 resource "aws_s3_bucket" "site" {
   bucket = local.site_bucket
+
+  # Allow `terraform destroy` to empty + delete the bucket. CI re-syncs every
+  # deploy, so the contents are reproducible from the repo + Terraform plan.
+  force_destroy = true
 }
 
 resource "aws_s3_bucket_versioning" "site" {

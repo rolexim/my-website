@@ -20,6 +20,11 @@ locals {
 
 resource "aws_s3_bucket" "tfstate" {
   bucket = local.state_bucket
+
+  # Allow `terraform destroy` to wipe the bucket — including all object
+  # versions and delete-markers — without an out-of-band aws s3api purge step.
+  # Only meaningful when tearing the whole project down.
+  force_destroy = true
 }
 
 resource "aws_s3_bucket_versioning" "tfstate" {
